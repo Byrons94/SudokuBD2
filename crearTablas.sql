@@ -34,14 +34,23 @@ CREATE TABLE Partidas (
     idUsuario INTEGER NOT NULL,
     idPlantilla INTEGER NOT NULL,
     tiempoInicio DATE NOT NULL,
-    tiempoFin DATE NOT NULL,
-    segundos NUMBER(5,2) NOT NULL,
-    puntos INTEGER  DEFAULT 0 NOT NULL,
+    tiempoFin DATE NULL,
+    segundos NUMBER(5,2) NULL,
+    puntos INTEGER DEFAULT 0 NOT NULL,
     CONSTRAINT Partidas_pk PRIMARY KEY (id)
 );
 
 CREATE SEQUENCE Partidas_seq;
 
+CREATE OR REPLACE TRIGGER Partidas_bir 
+BEFORE INSERT ON Partidas 
+FOR EACH ROW
+BEGIN
+  SELECT Partidas_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+/
 
 
 Prompt ******  PISTAS  ....
@@ -64,8 +73,20 @@ CREATE TABLE Plantillas (
     CONSTRAINT Plantillas_pk PRIMARY KEY (id)
 );
 
-CREATE SEQUENCE Plantillas_seq;
+CREATE SEQUENCE Plantillas_seq
+	START WITH     1
+	INCREMENT BY   1;
 
+CREATE OR REPLACE TRIGGER Plantillas_bir 
+BEFORE INSERT ON Plantillas 
+FOR EACH ROW
+BEGIN
+  SELECT Plantillas_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+/
+	
 
 Prompt ******  POSICIONES  ....
 
@@ -79,6 +100,16 @@ CREATE TABLE Posiciones (
 
 CREATE SEQUENCE Posiciones_seq;
 
+CREATE OR REPLACE TRIGGER Posiciones_bir 
+BEFORE INSERT ON Posiciones 
+FOR EACH ROW
+BEGIN
+  SELECT Posiciones_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+/
+
 
 Prompt ******  USUARIOS  ....
 
@@ -91,6 +122,16 @@ CREATE TABLE Usuarios (
 );
 
 CREATE SEQUENCE Usuarios_seq;
+	
+CREATE OR REPLACE TRIGGER Usuarios_bir 
+BEFORE INSERT ON Usuarios 
+FOR EACH ROW
+BEGIN
+  SELECT Usuarios_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+/
 
 --**********FIN DE CREACION DE TABLAS**********
 

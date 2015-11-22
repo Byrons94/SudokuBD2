@@ -2,6 +2,11 @@
 -- Last modification date: 2015-11-22 15:57:13.037
 
 
+-- sequence
+DROP SEQUENCE Partidas_seq;
+DROP SEQUENCE Plantillas_seq;
+DROP SEQUENCE Posiciones_seq;
+DROP SEQUENCE Usuarios_seq;
 
 
 

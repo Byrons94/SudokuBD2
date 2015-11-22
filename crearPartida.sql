@@ -11,7 +11,7 @@ CREATE OR REPLACE PROCEDURE CrearPartida (pidPlantilla INTEGER, pidUsuario INTEG
 		WHERE tpar.id=(SELECT MAX(tpar.id) FROM partidas);
 		
 		--crear incognitas
-		INSERT INTO incognitas (idPosicion, idPlantilla) 
+		INSERT INTO incognitas (idPosicion, idPartida) 
 			SELECT tpo.id, partida
 			FROM posiciones tpo 
 			WHERE tpo.id NOT IN
@@ -21,7 +21,7 @@ CREATE OR REPLACE PROCEDURE CrearPartida (pidPlantilla INTEGER, pidUsuario INTEG
 				INNER JOIN pistas tpi ON tpla.id = tpi.idPlantilla
 				INNER JOIN posiciones tpos ON tpos.id = tpi.idPosicion
 				WHERE tpla.id = pidPlantilla
-			)
+			);
 		
 		
 	END;

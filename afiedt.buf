@@ -1,5 +1,5 @@
-INSERT INTO incognitas (idPosicion, idPlantilla) 
-			SELECT tpo.id, 1
+INSERT INTO incognitas (idPosicion, idPartida) 
+			SELECT tpo.id, 2
 			FROM posiciones tpo 
 			WHERE tpo.id NOT IN
 			(
