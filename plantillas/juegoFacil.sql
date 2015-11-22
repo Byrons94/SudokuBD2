@@ -1,7 +1,7 @@
 DECLARE
     ID_PLANTILLA NUMBER(38) := 1;
 
-BEGIN
+BEGIN 
 		delete pistas
 		where IDPLANTILLA = 1;
 		
