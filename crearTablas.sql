@@ -11,7 +11,19 @@ CREATE TABLE Incognitas (
     numIntento INTEGER NULL,
     valor INTEGER NULL,
     CONSTRAINT Incognitas_pk PRIMARY KEY (idPosicion,idPartida)
-) ;
+);
+
+
+
+Prompt ******  PROBABILIDADES  ....
+
+CREATE GLOBAL TEMPORARY TABLE Probabilidades (
+	idPosicion INTEGER NOT NULL,
+	idPartida INTEGER NOT NULL,
+	porcentaje INTEGER NULL,
+	CONSTRAINT Probabilidades_pk PRIMARY KEY (idPosicion,idPartida)
+)
+ON COMMIT PRESERVE ROWS;
 
 
 
@@ -26,7 +38,7 @@ CREATE TABLE Partidas (
     segundos NUMBER(5,2) NOT NULL,
     puntos INTEGER  DEFAULT 0 NOT NULL,
     CONSTRAINT Partidas_pk PRIMARY KEY (id)
-) ;
+);
 
 
 
@@ -37,7 +49,7 @@ CREATE TABLE Pistas (
     idPlantilla INTEGER NOT NULL,
     valor INTEGER NOT NULL,
     CONSTRAINT Pistas_pk PRIMARY KEY (idPosicion,idPlantilla)
-) ;
+);
 
 
 
@@ -48,7 +60,7 @@ CREATE TABLE Plantillas (
     nombre VARCHAR2(20) NOT NULL,
     nivel INTEGER NOT NULL,
     CONSTRAINT Plantillas_pk PRIMARY KEY (id)
-) ;
+);
 
 
 
@@ -60,7 +72,7 @@ CREATE TABLE Posiciones (
     columna INTEGER NOT NULL,
     cuadrante INTEGER NOT NULL,
     CONSTRAINT Posiciones_pk PRIMARY KEY (id)
-) ;
+);
 
 
 
@@ -72,7 +84,7 @@ CREATE TABLE Usuarios (
     correo VARCHAR2(50) NOT NULL,
     apellido VARCHAR2(50) NOT NULL,
     CONSTRAINT Usuarios_pk PRIMARY KEY (id)
-) ;
+);
 
 --**********FIN DE CREACION DE TABLAS**********
 
