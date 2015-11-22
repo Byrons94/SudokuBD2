@@ -11,7 +11,7 @@ Begin
 
 cuadranteJ := CASE 
  				WHEN columnaJ <= 3
- 			     THEN CASE 
+ 			     THEN CASE  
  			     			WHEN filaJ <= 3 
  			     				THEN 1
  			     			WHEN filaJ <= 6 
