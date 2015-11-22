@@ -1,0 +1,12 @@
+INSERT INTO incognitas (idPosicion, idPlantilla) 
+			SELECT tpo.id, 1
+			FROM posiciones tpo 
+			WHERE tpo.id NOT IN
+			(
+				SELECT tpos.id 
+				FROM plantillas tpla
+				INNER JOIN pistas tpi ON tpla.id = tpi.idPlantilla
+				INNER JOIN posiciones tpos ON tpos.id = tpi.idPosicion
+				WHERE tpla.id = 1
+			)
+/

@@ -40,6 +40,8 @@ CREATE TABLE Partidas (
     CONSTRAINT Partidas_pk PRIMARY KEY (id)
 );
 
+CREATE SEQUENCE Partidas_seq;
+
 
 
 Prompt ******  PISTAS  ....
@@ -62,6 +64,7 @@ CREATE TABLE Plantillas (
     CONSTRAINT Plantillas_pk PRIMARY KEY (id)
 );
 
+CREATE SEQUENCE Plantillas_seq;
 
 
 Prompt ******  POSICIONES  ....
@@ -74,6 +77,7 @@ CREATE TABLE Posiciones (
     CONSTRAINT Posiciones_pk PRIMARY KEY (id)
 );
 
+CREATE SEQUENCE Posiciones_seq;
 
 
 Prompt ******  USUARIOS  ....
@@ -85,6 +89,8 @@ CREATE TABLE Usuarios (
     apellido VARCHAR2(50) NOT NULL,
     CONSTRAINT Usuarios_pk PRIMARY KEY (id)
 );
+
+CREATE SEQUENCE Usuarios_seq;
 
 --**********FIN DE CREACION DE TABLAS**********
 
