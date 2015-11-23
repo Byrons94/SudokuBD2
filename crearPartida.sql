@@ -6,9 +6,10 @@ CREATE OR REPLACE PROCEDURE CrearPartida (pidPlantilla INTEGER, pidUsuario INTEG
 			(SYSDATE, pidUsuario, pidPlantilla, 0);
 			
 		--seleccionar id partida
-		SELECT tpar.id INTO partida 
-		FROM partidas tpar
-		WHERE tpar.id=(SELECT MAX(tpar.id) FROM partidas);
+		
+		SELECT MAX(tpar.id) 
+		INTO partida 
+		FROM partidas tpar;
 		
 		--crear incognitas
 		INSERT INTO incognitas (idPosicion, idPartida) 

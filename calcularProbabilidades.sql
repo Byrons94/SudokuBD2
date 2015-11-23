@@ -72,6 +72,31 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 			
 				--si no hay 8 pistas
 				IF pistasXColumna < 8 THEN
+
+					SELECT COUNT(1)
+					INTO pistasXCuadrante
+					FROM (
+						SELECT tin.idPosicion, tin.valor
+						FROM incognitas tin 
+						UNION
+						SELECT tpis.idPosicion, tpis.valor
+						FROM pistas tpis
+						INNER JOIN plantillas tplan ON tplan.id = tpis.idPlantilla
+						INNER JOIN partidas tpart ON tpart.idPlantilla = tplan.id
+						WHERE tpart.id = pidPartida
+					) casillas
+					WHERE casillas.idPosicion IN
+					(
+						SELECT tpo.id 
+						FROM posiciones tpo 
+						WHERE tpo.cuadrante = 
+						(
+							SELECT tpos.cuadrante
+							FROM incognitas tinc 
+							INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
+							WHERE tinc.idPosicion = incognita.idPosicion AND tinc.idPartida = incognita.idPartida
+						)
+					) AND casillas.valor IS NOT NULL;
 				
 					
 					
