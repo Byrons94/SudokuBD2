@@ -1,12 +1,20 @@
-INSERT INTO incognitas (idPosicion, idPartida) 
-			SELECT tpo.id, 2
-			FROM posiciones tpo 
-			WHERE tpo.id NOT IN
+SELECT COUNT(1)
+			FROM (
+				SELECT tin.idPosicion, tin.valor
+				FROM incognitas tin
+				UNION
+				SELECT tpis.idPosicion, tpis.valor
+				FROM pistas tpis
+			) casillas
+			WHERE casillas.idPosicion IN
 			(
-				SELECT tpos.id 
-				FROM plantillas tpla
-				INNER JOIN pistas tpi ON tpla.id = tpi.idPlantilla
-				INNER JOIN posiciones tpos ON tpos.id = tpi.idPosicion
-				WHERE tpla.id = 1
-			)
+				SELECT tpo.id
+				FROM posiciones tpo
+				WHERE tpo.fila =
+				(
+					SELECT tpos.fila
+					FROM incognitas tinc
+					INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
+				)
+			) AND casillas.valor IS NOT NULL
 /
