@@ -1,5 +1,5 @@
 CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
-	totalIncognitas INTEGER := 0;
+	totalPistas INTEGER := 0;
 	BEGIN
 		
 		--por cada incognita
@@ -11,6 +11,7 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 			
 			--seleccionar total incognitas x fila
 			SELECT COUNT(1)
+			INTO totalPistas
 			FROM (
 				SELECT tin.idPosicion, tin.valor
 				FROM incognitas tin 
