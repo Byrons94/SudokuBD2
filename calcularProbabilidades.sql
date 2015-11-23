@@ -31,12 +31,9 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 				)
 			) AND casillas.valor IS NOT NULL;
 			
-				
-			END LOOP;
-			
-			
-		END LOOP;
-		
+			dbms_output.put_line('Incognita '||incognita.idPosicion||': '||totalPistas);
+							
+		END LOOP;		
 		
 	END;
 /
