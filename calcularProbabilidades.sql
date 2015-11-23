@@ -18,6 +18,9 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 				UNION
 				SELECT tpis.idPosicion, tpis.valor
 				FROM pistas tpis
+				INNER JOIN plantillas tplan ON tplan.id = tpis.idPlantilla
+				INNER JOIN partidas tpart ON tpart.idPlantilla = tplan.id
+				WHERE tpart.id = pidPartida
 			) casillas
 			WHERE casillas.idPosicion IN
 			(
@@ -28,10 +31,12 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 					SELECT tpos.fila
 					FROM incognitas tinc 
 					INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
+					WHERE tinc.idPosicion = incognita.idPosicion AND tinc.idPartida = incognita.idPartida
 				)
 			) AND casillas.valor IS NOT NULL;
 			
-			dbms_output.put_line('Incognita '||incognita.idPosicion||': '||totalPistas);
+			--dbms_output.put_line('Incognita '||incognita.idPosicion||': '||totalPistas);
+			
 							
 		END LOOP;		
 		

@@ -1,20 +1,7 @@
-SELECT COUNT(1)
-			FROM (
-				SELECT tin.idPosicion, tin.valor
+SELECT tin.idPosicion, tin.valor
 				FROM incognitas tin
 				UNION
 				SELECT tpis.idPosicion, tpis.valor
 				FROM pistas tpis
-			) casillas
-			WHERE casillas.idPosicion IN
-			(
-				SELECT tpo.id
-				FROM posiciones tpo
-				WHERE tpo.fila =
-				(
-					SELECT tpos.fila
-					FROM incognitas tinc
-					INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
-				)
-			) AND casillas.valor IS NOT NULL
+WHERE tpis.idPlantilla = 1
 /
