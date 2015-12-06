@@ -6,21 +6,22 @@ Prompt ******  CREACION DE TABLAS
 Prompt ******  INCOGNITAS  ....
 
 CREATE TABLE Incognitas (
+    id integer  NOT NULL,
     idPosicion INTEGER NOT NULL,
     idPartida INTEGER NOT NULL,
     numIntento INTEGER NULL,
     valor INTEGER NULL,
-    CONSTRAINT Incognitas_pk PRIMARY KEY (idPosicion,idPartida)
+    CONSTRAINT Incognitas_pk PRIMARY KEY (id)
 );
 
 
 Prompt ******  PROBABILIDADES  ....
 
 CREATE TABLE Probabilidades (
-    idProbabilidad integer  NOT NULL,
+    id integer  NOT NULL,
     idIncognita integer  NOT NULL,
     numero integer  NOT NULL,
-    CONSTRAINT Probabilidades_pk PRIMARY KEY (idProbabilidad)
+    CONSTRAINT Probabilidades_pk PRIMARY KEY (id)
 ) ;
 
 
@@ -90,7 +91,11 @@ CREATE TABLE Usuarios (
     CONSTRAINT Usuarios_pk PRIMARY KEY (id)
 );
 
-CREATE SEQUENCE Usuarios_seq;
+CREATE SEQUENCE Usuarios_seq
+	START WITH 1
+	INCREMENT BY 1
+	NOCACHE
+	NOCYCLE;
 	
 
 
@@ -162,7 +167,7 @@ Prompt ******  PROBABILIDAD DE INCOGNITA  ....
 
 ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas 
     FOREIGN KEY (idIncognita)
-    REFERENCES Incognitas (idIncognita)
+    REFERENCES Incognitas (id)
     ;
 
 
