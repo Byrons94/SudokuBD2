@@ -1,7 +1,10 @@
-SELECT tin.idPosicion, tin.valor
-				FROM incognitas tin
-				UNION
-				SELECT tpis.idPosicion, tpis.valor
-				FROM pistas tpis
-WHERE tpis.idPlantilla = 1
+BEGIN		
+FOR incognita IN (SELECT id FROM incognitas WHERE idPartida = 2)
+		LOOP
+			FOR valorActual IN 1..9
+			LOOP
+				INSERT INTO probabilidades(idJuego,idIncognita,numero) VALUES (2,incognita.id,valorActual);
+			END LOOP;
+		END LOOP;
+END;
 /

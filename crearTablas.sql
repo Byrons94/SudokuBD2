@@ -27,7 +27,6 @@ CREATE TABLE Probabilidades (
 );
 
 
-
 Prompt ******  PARTIDAS  ....
 
 CREATE TABLE Partidas (
