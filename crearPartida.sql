@@ -2,8 +2,8 @@ CREATE OR REPLACE PROCEDURE CrearPartida (pidPlantilla INTEGER, pidUsuario INTEG
 	partida INTEGER;
 	BEGIN
 		--crear partida
-		INSERT INTO partidas (tiempoInicio, idUsuario, idPlantilla, puntos) VALUES 
-			(SYSDATE, pidUsuario, pidPlantilla, 0);
+		INSERT INTO partidas (tiempoInicio,id, idUsuario, idPlantilla, puntos) VALUES 
+			(SYSDATE, Partidas_seq.NEXTVAL, pidUsuario, pidPlantilla, 0);
 			
 		--seleccionar id partida
 		
@@ -12,8 +12,8 @@ CREATE OR REPLACE PROCEDURE CrearPartida (pidPlantilla INTEGER, pidUsuario INTEG
 		FROM partidas tpar;
 		
 		--crear incognitas
-		INSERT INTO incognitas (idPosicion, idPartida) 
-			SELECT tpo.id, partida
+		INSERT INTO incognitas (id,idPosicion, idPartida) 
+			SELECT Incognitas_seq.NEXTVAL,tpo.id, partida
 			FROM posiciones tpo 
 			WHERE tpo.id NOT IN
 			(
