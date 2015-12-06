@@ -14,16 +14,14 @@ CREATE TABLE Incognitas (
 );
 
 
-
 Prompt ******  PROBABILIDADES  ....
 
-CREATE GLOBAL TEMPORARY TABLE Probabilidades (
-	idPosicion INTEGER NOT NULL,
-	idPartida INTEGER NOT NULL,
-	porcentaje INTEGER NULL,
-	CONSTRAINT Probabilidades_pk PRIMARY KEY (idPosicion,idPartida)
-)
-ON COMMIT PRESERVE ROWS;
+CREATE TABLE Probabilidades (
+    idProbabilidad integer  NOT NULL,
+    idIncognita integer  NOT NULL,
+    numero integer  NOT NULL,
+    CONSTRAINT Probabilidades_pk PRIMARY KEY (idProbabilidad)
+) ;
 
 
 
@@ -42,15 +40,6 @@ CREATE TABLE Partidas (
 
 CREATE SEQUENCE Partidas_seq;
 
-CREATE OR REPLACE TRIGGER Partidas_bir 
-BEFORE INSERT ON Partidas 
-FOR EACH ROW
-BEGIN
-  SELECT Partidas_seq.NEXTVAL
-  INTO   :new.id
-  FROM   dual;
-END;
-/
 
 
 Prompt ******  PISTAS  ....
@@ -73,19 +62,8 @@ CREATE TABLE Plantillas (
     CONSTRAINT Plantillas_pk PRIMARY KEY (id)
 );
 
-CREATE SEQUENCE Plantillas_seq
-	START WITH     1
-	INCREMENT BY   1;
+CREATE SEQUENCE Plantillas_seq;
 
-CREATE OR REPLACE TRIGGER Plantillas_bir 
-BEFORE INSERT ON Plantillas 
-FOR EACH ROW
-BEGIN
-  SELECT Plantillas_seq.NEXTVAL
-  INTO   :new.id
-  FROM   dual;
-END;
-/
 	
 
 Prompt ******  POSICIONES  ....
@@ -100,15 +78,6 @@ CREATE TABLE Posiciones (
 
 CREATE SEQUENCE Posiciones_seq;
 
-CREATE OR REPLACE TRIGGER Posiciones_bir 
-BEFORE INSERT ON Posiciones 
-FOR EACH ROW
-BEGIN
-  SELECT Posiciones_seq.NEXTVAL
-  INTO   :new.id
-  FROM   dual;
-END;
-/
 
 
 Prompt ******  USUARIOS  ....
@@ -123,15 +92,7 @@ CREATE TABLE Usuarios (
 
 CREATE SEQUENCE Usuarios_seq;
 	
-CREATE OR REPLACE TRIGGER Usuarios_bir 
-BEFORE INSERT ON Usuarios 
-FOR EACH ROW
-BEGIN
-  SELECT Usuarios_seq.NEXTVAL
-  INTO   :new.id
-  FROM   dual;
-END;
-/
+
 
 --**********FIN DE CREACION DE TABLAS**********
 
@@ -195,6 +156,14 @@ ALTER TABLE Pistas ADD CONSTRAINT Pistas_Posiciones
     REFERENCES Posiciones (id)
     ;
 
+
+	
+Prompt ******  PROBABILIDAD DE INCOGNITA  ....
+
+ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas 
+    FOREIGN KEY (idIncognita)
+    REFERENCES Incognitas (idIncognita)
+    ;
 
 
 
