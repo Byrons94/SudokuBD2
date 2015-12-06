@@ -165,14 +165,5 @@ ALTER TABLE Pistas ADD CONSTRAINT Pistas_Posiciones
 
 
 
-Prompt ******  PROBABILIDAD DE INCOGNITA  ....
-
-ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas
-    FOREIGN KEY (idIncognita)
-    REFERENCES Incognitas (id)
-    ;
-
-
-
 
 -- End of file.

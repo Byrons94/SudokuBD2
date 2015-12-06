@@ -24,8 +24,6 @@ ALTER TABLE Pistas DROP CONSTRAINT Pistas_Plantillas;
 
 ALTER TABLE Pistas DROP CONSTRAINT Pistas_Posiciones;
 
-ALTER TABLE Probabilidades DROP CONSTRAINT Probabilidades_Incognitas;
-
 
 
 -- tables
