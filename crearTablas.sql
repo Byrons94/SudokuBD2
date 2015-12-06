@@ -15,6 +15,9 @@ CREATE TABLE Incognitas (
 );
 
 
+CREATE SEQUENCE Incognitas_seq;
+
+
 Prompt ******  PROBABILIDADES  ....
 
 CREATE TABLE Probabilidades (
