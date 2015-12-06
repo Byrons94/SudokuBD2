@@ -21,10 +21,9 @@ CREATE SEQUENCE Incognitas_seq;
 Prompt ******  PROBABILIDADES  ....
 
 CREATE TABLE Probabilidades (
-    id integer  NOT NULL,
+    idjuego integer  NOT NULL,
     idIncognita integer  NOT NULL,
     numero integer  NOT NULL,
-    CONSTRAINT Probabilidades_pk PRIMARY KEY (id)
 ) ;
 
 
@@ -68,7 +67,7 @@ CREATE TABLE Plantillas (
 
 CREATE SEQUENCE Plantillas_seq;
 
-	
+
 
 Prompt ******  POSICIONES  ....
 
@@ -99,7 +98,7 @@ CREATE SEQUENCE Usuarios_seq
 	INCREMENT BY 1
 	NOCACHE
 	NOCYCLE;
-	
+
 
 
 --**********FIN DE CREACION DE TABLAS**********
@@ -114,61 +113,61 @@ Prompt ******  CREACION DE LLAVES FORANEAS
 
 Prompt ******  PARTIDA DE INCOGNITA  ....
 
-ALTER TABLE Incognitas ADD CONSTRAINT Casillas_Partidas 
+ALTER TABLE Incognitas ADD CONSTRAINT Casillas_Partidas
     FOREIGN KEY (idPartida)
     REFERENCES Partidas (id)
     ;
 
 
-	
+
 Prompt ******  POSICION DE INCOGNITA  ....
 
-ALTER TABLE Incognitas ADD CONSTRAINT Casillas_Posiciones 
+ALTER TABLE Incognitas ADD CONSTRAINT Casillas_Posiciones
     FOREIGN KEY (idPosicion)
     REFERENCES Posiciones (id)
     ;
 
 
-	
+
 Prompt ******  PLATILLA DE PARTIDA  ....
 
-ALTER TABLE Partidas ADD CONSTRAINT Partidas_Plantillas 
+ALTER TABLE Partidas ADD CONSTRAINT Partidas_Plantillas
     FOREIGN KEY (idPlantilla)
     REFERENCES Plantillas (id)
     ;
 
 
-	
+
 Prompt ******  USUARIO DE INCOGNITA  ....
 
-ALTER TABLE Partidas ADD CONSTRAINT Partidas_Usuarios 
+ALTER TABLE Partidas ADD CONSTRAINT Partidas_Usuarios
     FOREIGN KEY (idUsuario)
     REFERENCES Usuarios (id)
     ;
 
 
-	
+
 Prompt ******  PISTAS DE PLANTILLA  ....
 
-ALTER TABLE Pistas ADD CONSTRAINT Pistas_Plantillas 
+ALTER TABLE Pistas ADD CONSTRAINT Pistas_Plantillas
     FOREIGN KEY (idPlantilla)
     REFERENCES Plantillas (id)
     ;
 
 
-	
+
 Prompt ******  POSICION DE PISTA  ....
 
-ALTER TABLE Pistas ADD CONSTRAINT Pistas_Posiciones 
+ALTER TABLE Pistas ADD CONSTRAINT Pistas_Posiciones
     FOREIGN KEY (idPosicion)
     REFERENCES Posiciones (id)
     ;
 
 
-	
+
 Prompt ******  PROBABILIDAD DE INCOGNITA  ....
 
-ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas 
+ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas
     FOREIGN KEY (idIncognita)
     REFERENCES Incognitas (id)
     ;
@@ -177,4 +176,3 @@ ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas
 
 
 -- End of file.
-
