@@ -21,10 +21,10 @@ CREATE SEQUENCE Incognitas_seq;
 Prompt ******  PROBABILIDADES  ....
 
 CREATE TABLE Probabilidades (
-    idjuego integer  NOT NULL,
+    idjuego integer      NOT NULL,
     idIncognita integer  NOT NULL,
-    numero integer  NOT NULL,
-) ;
+    numero integer       NOT NULL
+);
 
 
 
