@@ -26,6 +26,8 @@ CREATE TABLE Probabilidades (
     numero integer       NOT NULL
 );
 
+CREATE SEQUENCE Probabilidades_seq;
+
 
 Prompt ******  PARTIDAS  ....
 
