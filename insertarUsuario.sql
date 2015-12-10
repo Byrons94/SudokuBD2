@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION fInsertarUsuario(NOMBRE VARCHAR2, APELLIDO VARCHAR2, CORREO VARCHAR2)
+RETURN BOOLEAN
+AS
+  INSERTADO BOOLEAN := FALSE;
+BEGIN
+
+  INSERT INTO usuarios
+    (id, nombre, apellido, correo)
+  VALUES
+    (Usuarios_seq.NEXTVAL, NOMBRE, APELLIDO, CORREO);
+  INSERTADO := TRUE;
+
+  RETURN INSERTADO;
+EXCEPTION
+  WHEN OTHERS THEN
+  raise_application_error(-20001,'Ha ocurrido un error al insertar - '||SQLCODE||' -ERROR- '||SQLERRM);
+END;
+/
