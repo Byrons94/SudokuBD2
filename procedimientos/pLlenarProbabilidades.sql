@@ -21,21 +21,7 @@ BEGIN
 				INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
 				INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
 				INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-				WHERE tpos.columna = incog_rec.COL AND tpar.id = ID_PARTIDA
-				UNION 
-				SELECT tpis.valor 
-				FROM partidas tpar 
-				INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-				INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-				INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-				WHERE tpos.fila = incog_rec.FILA AND tpar.id = ID_PARTIDA
-				UNION 
-				SELECT tpis.valor 
-				FROM partidas tpar 
-				INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-				INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-				INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-				WHERE tpos.cuadrante = incog_rec.CUAD AND tpar.id = ID_PARTIDA
+				WHERE tpar.id = ID_PARTIDA AND (tpos.columna = incog_rec.COL OR tpos.fila = incog_rec.FILA OR tpos.cuadrante = incog_rec.CUAD)			
 			)
 		) 
 		LOOP
