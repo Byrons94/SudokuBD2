@@ -1,7 +1,2 @@
-SELECT tpis.valor 
-FROM partidas tpar 
-INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-WHERE tpar.id = 1
+select distinct idIncognita from probabilidades
 /

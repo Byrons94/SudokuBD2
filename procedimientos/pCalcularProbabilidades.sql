@@ -14,7 +14,7 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 			--seleccionar total pistas x fila
 			ProbabilidadesFila(incognita.id,incognita.idPosicion);			
 			--dbms_output.put_line('Incognita '||incognita.idPosicion||' por fila: '||pistasXFila);
-			/*
+			
 			--si hay mas de una opcion
 			IF NOT UnicaOpcion(incognita.id) THEN
 			
@@ -32,7 +32,7 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 				END IF;
 			
 			END IF;
-					*/		
+							
 		END LOOP;		
 		
 	END;
