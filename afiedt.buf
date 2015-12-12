@@ -1,6 +1,7 @@
-select ti.*, tp.fila, tp.columna 
-from probabilidades ti 
-inner join incognitas tin on tin.id = ti.idIncognita
-inner join posiciones tp on tp.id = tin.idPosicion
-order by tp.fila, tp.columna
+SELECT tpis.valor 
+FROM partidas tpar 
+INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+WHERE tpar.id = 1
 /
