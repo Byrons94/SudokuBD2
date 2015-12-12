@@ -116,8 +116,7 @@ Prompt ******  PARTIDA DE INCOGNITA  ....
 
 ALTER TABLE Incognitas ADD CONSTRAINT Casillas_Partidas
     FOREIGN KEY (idPartida)
-    REFERENCES Partidas (id)
-    ;
+    REFERENCES Partidas (id);
 
 
 
@@ -125,8 +124,7 @@ Prompt ******  POSICION DE INCOGNITA  ....
 
 ALTER TABLE Incognitas ADD CONSTRAINT Casillas_Posiciones
     FOREIGN KEY (idPosicion)
-    REFERENCES Posiciones (id)
-    ;
+    REFERENCES Posiciones (id);
 
 
 
@@ -134,8 +132,7 @@ Prompt ******  PLATILLA DE PARTIDA  ....
 
 ALTER TABLE Partidas ADD CONSTRAINT Partidas_Plantillas
     FOREIGN KEY (idPlantilla)
-    REFERENCES Plantillas (id)
-    ;
+    REFERENCES Plantillas (id);
 
 
 
@@ -143,8 +140,7 @@ Prompt ******  USUARIO DE INCOGNITA  ....
 
 ALTER TABLE Partidas ADD CONSTRAINT Partidas_Usuarios
     FOREIGN KEY (idUsuario)
-    REFERENCES Usuarios (id)
-    ;
+    REFERENCES Usuarios (id);
 
 
 
@@ -164,6 +160,13 @@ ALTER TABLE Pistas ADD CONSTRAINT Pistas_Posiciones
     REFERENCES Posiciones (id)
     ;
 
+	
+	
+Prompt ******  INCOGNITA DE PROBABILIDAD  ....
+
+ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas
+    FOREIGN KEY (idIncognita)
+    REFERENCES Incognitas (id);
 
 
 

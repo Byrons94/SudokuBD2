@@ -1,10 +1,6 @@
-BEGIN		
-FOR incognita IN (SELECT id FROM incognitas WHERE idPartida = 2)
-		LOOP
-			FOR valorActual IN 1..9
-			LOOP
-				INSERT INTO probabilidades(idJuego,idIncognita,numero) VALUES (2,incognita.id,valorActual);
-			END LOOP;
-		END LOOP;
-END;
+select ti.*, tp.fila, tp.columna 
+from probabilidades ti 
+inner join incognitas tin on tin.id = ti.idIncognita
+inner join posiciones tp on tp.id = tin.idPosicion
+order by tp.fila, tp.columna
 /
