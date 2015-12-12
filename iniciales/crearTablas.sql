@@ -21,12 +21,10 @@ CREATE SEQUENCE Incognitas_seq;
 Prompt ******  PROBABILIDADES  ....
 
 CREATE TABLE Probabilidades (
-    idjuego integer      NOT NULL,
-    idIncognita integer  NOT NULL,
-    numero integer       NOT NULL
+    idPartida INTEGER NOT NULL,
+    idIncognita INTEGER NOT NULL,
+    numero INTEGER  NOT NULL
 );
-
-CREATE SEQUENCE Probabilidades_seq;
 
 
 Prompt ******  PARTIDAS  ....
@@ -167,6 +165,14 @@ Prompt ******  INCOGNITA DE PROBABILIDAD  ....
 ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Incognitas
     FOREIGN KEY (idIncognita)
     REFERENCES Incognitas (id);
+	
+	
+	
+Prompt ******  PARTIDA DE PROBABILIDAD  ....
+
+ALTER TABLE Probabilidades ADD CONSTRAINT Probabilidades_Partida
+	FOREIGN KEY (idPartida)
+	REFERENCES PARTIDAS (id);
 
 
 

@@ -39,8 +39,8 @@ BEGIN
 			)
 		) 
 		LOOP
-			INSERT INTO probabilidades (idjuego,idincognita,numero)
-			VALUES(Probabilidades_seq.NEXTVAL,incog_rec.ID,pist_rec.VAL);
+			INSERT INTO probabilidades (idPartida,idincognita,numero)
+			VALUES(ID_PARTIDA,incog_rec.ID,pist_rec.VAL);
 		END LOOP; 
 	END LOOP;
 END;
