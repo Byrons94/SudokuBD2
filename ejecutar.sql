@@ -8,7 +8,7 @@
   start plantillas/juegoFacil.sql;
   start plantillas/juegoMedio.sql;
 
-  start iniciales/crearPartida.sql
+  start procedimientos/crearPartida.sql
 
   start procedimientos/pcalcProb.sql
   start  procedimientos/pProbabilidadesFila.sql
