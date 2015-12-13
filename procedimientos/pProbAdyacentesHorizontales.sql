@@ -18,7 +18,21 @@ BEGIN
 		WHERE 
 			tpar.id = ppartida AND 
 			(tpos.fila = ObtenerAdyacente(pfila,verdadero)) AND
-			tpos.cuadrante <> pcuadrante
+			tpos.cuadrante <> pcuadrante AND
+			tpis.valor NOT IN 
+			(
+				SELECT tinc.valor
+				FROM incognitas tinc 
+				INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tinc.valor IS NOT NULL
+				UNION
+				SELECT tpist.valor
+				FROM partidas tparti
+				INNER JOIN plantillas tplanti ON tplanti.id = tparti.idPlantilla
+				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
+				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
+			)
 		INTERSECT 
 		SELECT tpis.valor 
 		FROM partidas tpar 
@@ -28,7 +42,21 @@ BEGIN
 		WHERE 
 			tpar.id = ppartida AND 
 			(tpos.fila = ObtenerAdyacente(pfila,falso)) AND
-			tpos.cuadrante <> pcuadrante
+			tpos.cuadrante <> pcuadrante AND
+			tpis.valor NOT IN 
+			(
+				SELECT tinc.valor
+				FROM incognitas tinc 
+				INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tinc.valor IS NOT NULL
+				UNION
+				SELECT tpist.valor
+				FROM partidas tparti
+				INNER JOIN plantillas tplanti ON tplanti.id = tparti.idPlantilla
+				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
+				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
+			)
 	)
 	LOOP
 		

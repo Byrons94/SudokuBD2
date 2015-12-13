@@ -7,6 +7,7 @@ CREATE OR REPLACE PROCEDURE pProbAdyacentesVerticales
 	valor2 INTEGER := 0;
 	
 BEGIN
+	
 			
 	--por cada resultado intersecado verticalmente
 	FOR insersecada IN (
@@ -18,7 +19,20 @@ BEGIN
 		WHERE 
 			tpar.id = ppartida AND 
 			(tpos.columna = ObtenerAdyacente(pcolumna,verdadero)) AND
-			tpos.cuadrante <> pcuadrante
+			tpis.valor NOT IN 
+			(
+				SELECT tinc.valor
+				FROM incognitas tinc 
+				INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tinc.valor IS NOT NULL
+				UNION
+				SELECT tpist.valor
+				FROM partidas tparti
+				INNER JOIN plantillas tplanti ON tplanti.id = tparti.idPlantilla
+				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
+				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
+			)
 		INTERSECT 
 		SELECT tpis.valor 
 		FROM partidas tpar 
@@ -28,9 +42,23 @@ BEGIN
 		WHERE 
 			tpar.id = ppartida AND 
 			(tpos.columna = ObtenerAdyacente(pcolumna,falso)) AND
-			tpos.cuadrante <> pcuadrante
+			tpis.valor NOT IN 
+			(
+				SELECT tinc.valor
+				FROM incognitas tinc 
+				INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tinc.valor IS NOT NULL
+				UNION
+				SELECT tpist.valor
+				FROM partidas tparti
+				INNER JOIN plantillas tplanti ON tplanti.id = tparti.idPlantilla
+				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
+				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
+			)
 	)
 	LOOP
+	
 		valor1 := 0;
 		valor2 := 1;
 		
