@@ -23,3 +23,4 @@
   start procedimientos/pProbAdyacentesVerticales.sql
   start procedimientos/pProbabilidadesAdyacentes.sql
   start  procedimientos/pCalcularProbabilidades.sql
+  start procedimientos/pResolverJuego.sql
