@@ -1,5 +1,5 @@
 SELECT COUNT(1)
 		FROM incognitas tinc
 		INNER JOIN probabilidades tpro ON tpro.idIncognita = tinc.id
-		WHERE tinc.idPartida = 1
+		WHERE tinc.idPartida = 2
 /

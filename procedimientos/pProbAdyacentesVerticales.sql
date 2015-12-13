@@ -78,7 +78,7 @@ BEGIN
 	)
 	LOOP
 		valor1 := 0;
-		valor2 := 1;
+		valor2 := 0;
 		
 		--seleccionar primer valor adyacente
 		SELECT GetValorPosicion(ppartida,ObtenerAdyacente(pfila,verdadero), pcolumna)
@@ -86,7 +86,7 @@ BEGIN
 		FROM dual;
 		
 		--si el primer valor no se encontro
-		IF valor1 = 0 THEN
+		IF valor1 = 0 OR valor1 IS NULL THEN
 			SELECT GetValorEnFilaActual(ppartida, ObtenerAdyacente(pfila,verdadero), pcuadrante, insersecada.valor)
 			INTO valor1
 			FROM dual;
@@ -98,7 +98,7 @@ BEGIN
 		FROM dual;
 		
 		--si el segundo valor no se encontro
-		IF valor2 = 0 THEN
+		IF valor2 = 0 OR valor2 IS NULL  THEN
 			SELECT GetValorEnFilaActual(ppartida, ObtenerAdyacente(pfila,falso), pcuadrante, insersecada.valor)
 			INTO valor2
 			FROM dual;
