@@ -8,7 +8,6 @@ DROP SEQUENCE Plantillas_seq;
 DROP SEQUENCE Posiciones_seq;
 DROP SEQUENCE Usuarios_seq;
 DROP SEQUENCE Incognitas_seq;
-DROP SEQUENCE Probabilidades_seq;
 
 
 

@@ -1,9 +1,20 @@
-SELECT id, valor
-		FROM (
-			SELECT tin.id, tin.idPosicion, tin.valor
-			FROM incognitas tin
-			INNER JOIN partidas tp ON tp.id = tin.idPartida
-			INNER JOIN posiciones tpos ON tpos.id = tin.idPosicion
-			WHERE tpos.fila = 1 AND tp.id = 1 AND tin.valor IS NOT NULL
-		)	
+SELECT tpis.valor
+		FROM partidas tpar 
+		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+		WHERE 
+			tpar.id = 1 AND 
+			(tpos.fila = 1) AND
+			tpos.cuadrante <> 4
+		INTERSECT 
+		SELECT tpis.valor 
+		FROM partidas tpar 
+		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+		WHERE 
+			tpar.id = 1 AND 
+			(tpos.fila = 2) AND
+			tpos.cuadrante <> 4
 /

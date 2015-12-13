@@ -14,21 +14,26 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 			
 			--seleccionar total pistas x fila
 			ProbabilidadesFila(pidPartida,incognita.id,incognita.fila);			
-			--dbms_output.put_line('Incognita '||incognita.idPosicion||' por fila: '||pistasXFila);
 			
 			--si hay mas de una opcion
 			IF NOT UnicaOpcion(incognita.id) THEN
 			
 				--seleccionar total pistas x columna
 				ProbabilidadesColumna(pidPartida,incognita.id,incognita.columna);			
-				--dbms_output.put_line('Incognita '||incognita.idPosicion||' por columna: '||pistasXColumna);
 			
 				--si hay mas de una opcion
 				IF NOT UnicaOpcion(incognita.id) THEN
 
 					--seleccionar total pistas x cuadrante
 					ProbabilidadesCuadrante(pidPartida,incognita.id,incognita.cuadrante);			
-					--dbms_output.put_line('Incognita '||incognita.idPosicion||' por cuadrante: '||pistasXCuadrante);
+					
+					--si hay mas de una opcion
+					IF NOT UnicaOpcion(incognita.id) THEN
+
+						--seleccionar total pistas x cuadrante
+						ProbabilidadesAdyacentes(pidPartida);			
+					
+					END IF;
 				
 				END IF;
 			

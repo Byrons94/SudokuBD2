@@ -1,36 +1,30 @@
-CREATE OR REPLACE PROCEDURE ProbabilidadesAdyacentes (ID_PARTIDA in NUMBER) IS
+CREATE OR REPLACE PROCEDURE ProbabilidadesAdyacentes (ppartida in INTEGER) IS
 
 CURSOR INCOG IS 
-SELECT ti.id ID, tpos.fila FILA, tpos.columna COL, tpos.cuadrante CUAD
+SELECT ti.id ID, tposic.fila FILA, tposic.columna COL, tposic.cuadrante CUAD, ti.valor VAL
 FROM incognitas ti 
-JOIN posiciones tpos ON(ti.idposicion=tpos.id)
-WHERE idPartida = ID_PARTIDA;
+JOIN posiciones tposic ON ti.idposicion=tposic.id
+WHERE idPartida = ppartida AND ti.valor IS NULL;
 
-A number :=0;
-B number:= 0;
+verdadero NUMBER(1) := 1;
+falso NUMBER(1) := 0;
+
+valor1 INTEGER := 0;
+valor2 INTEGER := 0;
 
 BEGIN
+			
 	FOR incog_rec IN INCOG 
 	LOOP
-
-		IF(incog_rec.FILA >1 AND incog_rec.COL >1) AND (incog_rec.FILA <9 AND incog_rec.COL <9) THEN
-
-			SELECT tpis.valor INTO A
-					FROM partidas tpar 
-					INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-					INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-					INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-					WHERE tpar.id = ID_PARTIDA AND (tpos.fila = incog_rec.FILA+1)
-			INTERSECT 
-			SELECT tpis.valor 
-					FROM partidas tpar 
-					INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-					INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-					INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-					WHERE tpar.id = ID_PARTIDA AND (tpos.fila = incog_rec.FILA-1);		
-
+	
+		--por cada resultado intersecado verticalmente		
+		pProbAdyacentesVerticales(ppartida,incog_rec.id,incog_rec.FILA,incog_rec.COL,incog_rec.CUAD);
+		
+		--si hay mas de una opcion
+		IF NOT UnicaOpcion(incog_rec.id) THEN
+			--por cada resultado intersecado horizontalmente	
+			pProbAdyacentesHorizontales(ppartida,incog_rec.id,incog_rec.FILA,incog_rec.COL,incog_rec.CUAD);
 		END IF;
-
 	END LOOP;
 	
 END;
