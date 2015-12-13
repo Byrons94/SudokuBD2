@@ -6,28 +6,29 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 		
 		--por cada incognita
 		FOR incognita IN (
-			SELECT tinc.* 
+			SELECT tinc.id, tinc.valor, tp.fila, tp.columna, tp.cuadrante 
 			FROM incognitas tinc 
+			INNER JOIN posiciones tp ON tp.id = tinc.idPosicion
 			WHERE tinc.idPartida = pidPartida AND tinc.valor IS NULL
 		) LOOP
 			
 			--seleccionar total pistas x fila
-			ProbabilidadesFila(incognita.id,incognita.idPosicion);			
+			ProbabilidadesFila(pidPartida,incognita.id,incognita.fila);			
 			--dbms_output.put_line('Incognita '||incognita.idPosicion||' por fila: '||pistasXFila);
 			
 			--si hay mas de una opcion
 			IF NOT UnicaOpcion(incognita.id) THEN
 			
 				--seleccionar total pistas x columna
-				ProbabilidadesColumna(incognita.id,incognita.valor);			
-				dbms_output.put_line('Incognita '||incognita.idPosicion||' por columna: '||pistasXColumna);
+				ProbabilidadesColumna(pidPartida,incognita.id,incognita.columna);			
+				--dbms_output.put_line('Incognita '||incognita.idPosicion||' por columna: '||pistasXColumna);
 			
 				--si hay mas de una opcion
 				IF NOT UnicaOpcion(incognita.id) THEN
 
 					--seleccionar total pistas x cuadrante
-					ProbabilidadesCuadrante(incognita.id,incognita.valor);			
-					dbms_output.put_line('Incognita '||incognita.idPosicion||' por cuadrante: '||pistasXCuadrante);
+					ProbabilidadesCuadrante(pidPartida,incognita.id,incognita.cuadrante);			
+					--dbms_output.put_line('Incognita '||incognita.idPosicion||' por cuadrante: '||pistasXCuadrante);
 				
 				END IF;
 			
