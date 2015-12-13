@@ -31,7 +31,7 @@ CREATE OR REPLACE PROCEDURE CalcularProbabilidades (pidPartida INTEGER) AS
 					IF NOT UnicaOpcion(incognita.id) THEN
 
 						--seleccionar total pistas x cuadrante
-						ProbabilidadesAdyacentes(pidPartida);			
+						ProbabilidadesAdyacentes(pidPartida,incognita.id,incognita.fila,incognita.columna,incognita.cuadrante);			
 					
 					END IF;
 				
