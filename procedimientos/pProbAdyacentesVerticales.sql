@@ -11,15 +11,56 @@ BEGIN
 			
 	--por cada resultado intersecado verticalmente
 	FOR insersecada IN (
-		SELECT tpis.valor
-		FROM partidas tpar 
-		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+		SELECT valor
+		FROM
+		(
+			SELECT tpis.valor, tpos.columna
+			FROM partidas tpar 
+			INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+			INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			WHERE tpar.id = ppartida
+			UNION
+			SELECT tinc.valor, tposi.columna
+			FROM incognitas tinc 
+			INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+			WHERE tinc.idPartida = ppartida
+		) ady1
 		WHERE 
-			tpar.id = ppartida AND 
-			(tpos.columna = ObtenerAdyacente(pcolumna,verdadero)) AND
-			tpis.valor NOT IN 
+			ady1.columna = ObtenerAdyacente(pcolumna,verdadero) AND
+			ady1.valor NOT IN 
+			(
+				SELECT tinc.valor
+				FROM incognitas tinc 
+				INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tinc.valor IS NOT NULL
+				UNION
+				SELECT tpist.valor
+				FROM partidas tparti
+				INNER JOIN plantillas tplanti ON tplanti.id = tparti.idPlantilla
+				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
+				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
+				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
+			)		
+		INTERSECT
+		SELECT valor
+		FROM
+		(
+			SELECT tpis.valor, tpos.columna
+			FROM partidas tpar 
+			INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+			INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			WHERE tpar.id = ppartida
+			UNION
+			SELECT tinc.valor, tposi.columna
+			FROM incognitas tinc 
+			INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+			WHERE tinc.idPartida = ppartida
+		) ady2
+		WHERE 
+			ady2.columna = ObtenerAdyacente(pcolumna,falso) AND
+			ady2.valor NOT IN 
 			(
 				SELECT tinc.valor
 				FROM incognitas tinc 
@@ -33,32 +74,9 @@ BEGIN
 				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
 				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
 			)
-		INTERSECT 
-		SELECT tpis.valor 
-		FROM partidas tpar 
-		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-		WHERE 
-			tpar.id = ppartida AND 
-			(tpos.columna = ObtenerAdyacente(pcolumna,falso)) AND
-			tpis.valor NOT IN 
-			(
-				SELECT tinc.valor
-				FROM incognitas tinc 
-				INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
-				WHERE tposi.cuadrante = pcuadrante AND tinc.valor IS NOT NULL
-				UNION
-				SELECT tpist.valor
-				FROM partidas tparti
-				INNER JOIN plantillas tplanti ON tplanti.id = tparti.idPlantilla
-				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
-				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
-				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
-			)
+		
 	)
 	LOOP
-	
 		valor1 := 0;
 		valor2 := 1;
 		

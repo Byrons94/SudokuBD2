@@ -10,16 +10,24 @@ BEGIN
 			
 	--por cada resultado intersecado horizontalmente
 	FOR insersecada IN (
-		SELECT tpis.valor
-		FROM partidas tpar 
-		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+		SELECT valor
+		FROM
+		(
+			SELECT tpis.valor, tpos.fila
+			FROM partidas tpar 
+			INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+			INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			WHERE tpar.id = ppartida
+			UNION
+			SELECT tinc.valor, tposi.fila
+			FROM incognitas tinc 
+			INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+			WHERE tinc.idPartida = ppartida
+		) ady1
 		WHERE 
-			tpar.id = ppartida AND 
-			(tpos.fila = ObtenerAdyacente(pfila,verdadero)) AND
-			tpos.cuadrante <> pcuadrante AND
-			tpis.valor NOT IN 
+			ady1.fila = ObtenerAdyacente(pfila,verdadero) AND
+			ady1.valor NOT IN 
 			(
 				SELECT tinc.valor
 				FROM incognitas tinc 
@@ -32,18 +40,26 @@ BEGIN
 				INNER JOIN pistas tpist ON tpist.idPlantilla = tplanti.id
 				INNER JOIN posiciones tposi ON tposi.id = tpist.idPosicion
 				WHERE tposi.cuadrante = pcuadrante AND tpist.valor IS NOT NULL
-			)
-		INTERSECT 
-		SELECT tpis.valor 
-		FROM partidas tpar 
-		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			)		
+		INTERSECT
+		SELECT valor
+		FROM
+		(
+			SELECT tpis.valor, tpos.fila
+			FROM partidas tpar 
+			INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+			INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			WHERE tpar.id = ppartida
+			UNION
+			SELECT tinc.valor, tposi.fila
+			FROM incognitas tinc 
+			INNER JOIN posiciones tposi ON tposi.id = tinc.idPosicion
+			WHERE tinc.idPartida = ppartida
+		) ady2
 		WHERE 
-			tpar.id = ppartida AND 
-			(tpos.fila = ObtenerAdyacente(pfila,falso)) AND
-			tpos.cuadrante <> pcuadrante AND
-			tpis.valor NOT IN 
+			ady2.fila = ObtenerAdyacente(pfila,falso) AND
+			ady2.valor NOT IN 
 			(
 				SELECT tinc.valor
 				FROM incognitas tinc 
