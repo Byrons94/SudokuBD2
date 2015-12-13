@@ -61,7 +61,7 @@ BEGIN
 		
 		--si los dos valores fueron encontrados
 		IF valor1 <> 0 AND valor2 <> 0 THEN
-			--dbms_output.put_line('H-> FILA:' || pfila || ' / COLUMNA:' || pcolumna || ' / VALOR:' || insersecada.valor);
+			dbms_output.put_line('H-> FILA:' || pfila || ' / COLUMNA:' || pcolumna || ' / VALOR:' || insersecada.valor);
 			DELETE FROM probabilidades tpro
 			WHERE tpro.idIncognita = pincognita AND tpro.numero <> insersecada.valor;
 		END IF;

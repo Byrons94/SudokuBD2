@@ -6,12 +6,6 @@ FROM incognitas ti
 JOIN posiciones tposic ON ti.idposicion=tposic.id
 WHERE idPartida = ppartida AND ti.valor IS NULL;
 
-verdadero NUMBER(1) := 1;
-falso NUMBER(1) := 0;
-
-valor1 INTEGER := 0;
-valor2 INTEGER := 0;
-
 BEGIN
 			
 	FOR incog_rec IN INCOG 

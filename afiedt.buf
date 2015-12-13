@@ -1,20 +1,42 @@
-SELECT tpis.valor
-		FROM partidas tpar 
-		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-		WHERE 
-			tpar.id = 1 AND 
-			(tpos.fila = 1) AND
-			tpos.cuadrante <> 4
-		INTERSECT 
-		SELECT tpis.valor 
-		FROM partidas tpar 
-		INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
-		INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
-		INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-		WHERE 
-			tpar.id = 1 AND 
-			(tpos.fila = 2) AND
-			tpos.cuadrante <> 4
+select *
+from
+(
+			SELECT tpis.valor
+			FROM partidas tpar 
+			INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+			INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			WHERE 
+				tpar.id = 1 AND 
+				(tpos.columna = ObtenerAdyacente(4,1)) AND
+				tpos.cuadrante <> 2
+			UNION
+			SELECT tinc.valor
+			FROM incognitas tinc 
+			INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
+			WHERE 
+				tinc.idPartida = 1 AND 
+				(tpos.columna = ObtenerAdyacente(4,1)) AND
+				tpos.cuadrante <> 2
+		)
+		INTERSECT 		
+		(
+			SELECT tpis.valor
+			FROM partidas tpar 
+			INNER JOIN plantillas tpla ON tpla.id = tpar.idPlantilla 
+			INNER JOIN pistas tpis ON tpis.idPlantilla = tpla.id 
+			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
+			WHERE 
+				tpar.id = 1 AND 
+				(tpos.columna = ObtenerAdyacente(4,0)) AND
+				tpos.cuadrante <> 2
+			UNION
+			SELECT tinc.valor
+			FROM incognitas tinc 
+			INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
+			WHERE 
+				tinc.idPartida = 1 AND 
+				(tpos.columna = ObtenerAdyacente(4,0)) AND
+				tpos.cuadrante <> 2
+		)
 /

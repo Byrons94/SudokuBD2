@@ -31,7 +31,6 @@ BEGIN
 			tpos.cuadrante <> pcuadrante
 	)
 	LOOP
-	
 		valor1 := 0;
 		valor2 := 1;
 		

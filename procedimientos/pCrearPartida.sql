@@ -24,5 +24,6 @@ CREATE OR REPLACE PROCEDURE CrearPartida (pidPlantilla INTEGER, pidUsuario INTEG
 				WHERE tpla.id = pidPlantilla
 			);
 		
+		LlenarProbabilidades(partida);
 	END;
 /

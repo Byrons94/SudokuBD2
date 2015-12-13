@@ -2,7 +2,7 @@ CREATE OR REPLACE PROCEDURE ResolverJuego (pidPartida INTEGER) AS
 	primeraVez BOOLEAN := TRUE;
 	totalProbabilidades INTEGER := 1;
 BEGIN
-	CalcularProbabilidades(1);
+	CalcularProbabilidades(pidPartida);
 	WHILE primeraVez-- OR totalProbabilidades > 0
 	LOOP
 	   
