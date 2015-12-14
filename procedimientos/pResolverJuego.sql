@@ -29,12 +29,12 @@ BEGIN
 			   FROM probabilidades tpro
 			   GROUP BY tpro.idPartida, tpro.idIncognita
 			   HAVING COUNT(1) = 1
-		   )
+		   ) AND idPartida= pidPartida
 		) 
 		LOOP
 			dbms_output.put_line('Incognita:'||probabilidad.idIncognita||'/ VALOR REAL:' || probabilidad.numero);
-			UPDATE incognitas tinc SET tinc.valor = probabilidad.numero WHERE tinc.id = probabilidad.idIncognita;
-			DELETE FROM probabilidades WHERE idIncognita = probabilidad.idIncognita;
+			UPDATE incognitas tinc SET tinc.valor = probabilidad.numero WHERE tinc.id = probabilidad.idIncognita AND tinc.idPartida=pidPartida;
+			DELETE FROM probabilidades WHERE idIncognita = probabilidad.idIncognita AND idPartida=pidPartida;
 		END LOOP;
 	   
 	END LOOP;

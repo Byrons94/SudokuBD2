@@ -1,5 +1,5 @@
-SELECT COUNT(1)
-		FROM incognitas tinc
-		INNER JOIN probabilidades tpro ON tpro.idIncognita = tinc.id
-		WHERE tinc.idPartida = 2
+SELECT tinc.id, tinc.valor, tp.fila, tp.columna, tp.cuadrante
+			FROM incognitas tinc
+			INNER JOIN posiciones tp ON tp.id = tinc.idPosicion
+			WHERE tinc.idPartida = 2 AND tinc.valor IS NULL
 /

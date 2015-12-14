@@ -12,12 +12,12 @@ RETURN INTEGER AS
 			INNER JOIN plantillas tplan ON tplan.id = tpar.idPlantilla
 			INNER JOIN pistas tpis ON tpis.idPlantilla = tplan.id
 			INNER JOIN posiciones tpos ON tpos.id = tpis.idPosicion
-			WHERE tpos.fila = pfila AND tpos.columna = pcolumna
+			WHERE tpos.fila = pfila AND tpos.columna = pcolumna AND tpar.id = ppartida
 			UNION 
 			SELECT tpos.id, tinc.valor
 			FROM incognitas tinc 
 			INNER JOIN posiciones tpos ON tpos.id = tinc.idPosicion
-			WHERE tpos.fila = pfila AND tpos.columna = pcolumna
+			WHERE tpos.fila = pfila AND tpos.columna = pcolumna AND tinc.idpartida = ppartida
 		)
 		WHERE ROWNUM = 1;
 		
