@@ -7,6 +7,8 @@
   start plantillas/llenaIncognitas.sql
   start plantillas/juegoFacil.sql;
   start plantillas/juegoMedio.sql;
+  start plantillas/juegoMedio.sql;
+  start plantillas/juegoMuyDificil.sql
 
   start  funciones/fUnicaOpcion.sql
   start  funciones/fGetValorPosicion.sql
