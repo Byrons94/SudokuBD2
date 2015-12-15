@@ -9,13 +9,14 @@
   start plantillas/juegoMedio.sql;
   start plantillas/juegoMedio.sql;
   start plantillas/juegoMuyDificil.sql
+  start plantillas/juegoEntrega.sql
 
   start  funciones/fUnicaOpcion.sql
   start  funciones/fGetValorPosicion.sql
   start  funciones/fObtenerAdyacente.sql
   start funciones/fGetValorEnFilaActual.sql
   start funciones/fGetValorEnColumnaActual.sql
-  
+
   start procedimientos/pCrearPartida.sql
   start procedimientos/pLlenarProbabilidades.sql
   start  procedimientos/pProbabilidadesFila.sql
